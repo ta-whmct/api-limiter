@@ -9,8 +9,10 @@ redis_service = RedisService
 @routes.get("/")
 async def hello(_: web.Request) -> web.Response:
     client_ip = _.remote or "-"
+    username = _.query.get("username", "-")
+
     try:
-        await redis_service.check_limit_with_fixed_window_counter(client_ip)
+        await redis_service.check_limit_with_fixed_window_counter(f"{username}:{client_ip}")
         return web.Response(text="Hello, world")
     except ValueError:
         return web.Response(text="limit", status=429)
