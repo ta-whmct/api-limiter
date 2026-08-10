@@ -1,0 +1,38 @@
+services:
+  api-limiter:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    networks:
+      - app-network
+  
+  redis:
+    image: redis:latest
+    ports:
+        - '6379:6379'
+    volumes:
+        - redis-data:/data
+    restart: always
+    networks:
+      - app-network
+
+  redisui:
+    image: redis/redisinsight:latest
+    restart: always
+    ports:
+      - "8080:5540"
+    volumes:
+      - redisinsight_data:/data
+    networks:
+      - app-network
+volumes:
+    redis-data:
+    redisinsight_data:
+
+
+networks:
+  app-network:
+    driver: bridge
