@@ -22,5 +22,6 @@ select = ["ALL"]
 ignore = [
     "D",
     "CPY",
-    "COM"
+    "COM",
+    "S104", # Possible binding to all interfaces
 ]
