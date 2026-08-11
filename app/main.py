@@ -7,7 +7,7 @@ redis_service = RedisService
 
 
 @routes.get("/fixed-window")
-async def fixes_window(_: web.Request) -> web.Response:
+async def fixed_window(_: web.Request) -> web.Response:
     client_ip = _.remote or "-"
     username = _.query.get("username", "-")
 
@@ -21,4 +21,4 @@ async def fixes_window(_: web.Request) -> web.Response:
 
 
 app = web.Application()
-app.add_routes([web.get("/", fixes_window)])
+app.add_routes([web.get("/", fixed_window)])
