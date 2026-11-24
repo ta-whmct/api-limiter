@@ -1,6 +1,12 @@
+import os
+
 from aiohttp import web
+from dotenv import load_dotenv
 
 from app.redis_service import RedisService
+
+load_dotenv(".env")
+secret_word = os.getenv("secret_word")
 
 routes = web.RouteTableDef()
 redis_service = RedisService
@@ -13,7 +19,7 @@ async def hello(_: web.Request) -> web.Response:
 
     try:
         await redis_service.check_limit_with_fixed_window_counter(f"{username}:{client_ip}")
-        return web.Response(text="Hello, world")
+        return web.Response(text=f"Hello, secret_word is '{secret_word}'")
     except ValueError:
         return web.Response(text="limit", status=429)
     except Exception:

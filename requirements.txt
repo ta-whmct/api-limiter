@@ -22,6 +22,10 @@ propcache==0.5.2
     # via
     #   aiohttp
     #   yarl
+python-dotenv==1.2.4
+    # via api-limiter (pyproject.toml)
+redis==8.1.0
+    # via api-limiter (pyproject.toml)
 ruff==0.16.2
     # via api-limiter (pyproject.toml)
 yarl==1.24.5
